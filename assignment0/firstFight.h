@@ -24,9 +24,8 @@ using namespace std;
 ///Complete the following functions
 ///DO NOT modify any parameters in the functions.
 ////////////////////////////////////////////////////////////////////////
-// Ham kiem tra snt
 
-bool checksnt (int n)
+bool isPrimeNum (int n)
 {
     if (n < 2) 
     {
@@ -49,12 +48,20 @@ bool checksnt (int n)
     }
     return true ;
 }
+void resetHP(int& HP)
+{
+    if(HP > 1000) HP = 1000;
+    if(HP < 0) HP=0;
+}
+void resetM(int& M)
+{
+    if(M > 1000) M = 1000;
+    if(M < 0) M=0;
+}
 int getReady(int& HP, const int& ID, int& M, const int& E1){
     //Complete this function to gain point on task 1
-    if(M > 1000) M=1000;
-    if(M< 0)      M=0;
-    if(HP > 1000) HP=1000;
-    if(HP < 0)  HP=0;
+    resetHP(HP);
+    resetM(M);
     // Truong hop 1
     if (E1 <= 199 && E1 >=100)
     {
@@ -68,16 +75,14 @@ int getReady(int& HP, const int& ID, int& M, const int& E1){
                 if(M >= 300 && HP >= 500 && M%2==1)
                 {
                     HP=HP+50;
-                    if(HP > 1000) HP=1000;
-                    if(HP < 0) HP=0;
+                    resetHP(HP);
                     M=M-300;
                     return HP + M;
                 }
                 else if (M >= 200 && M %2==0)
                 {
                     HP=HP+25;
-                    if(HP > 1000) HP=1000;
-                    if(HP < 0) HP=0;
+                    resetHP(HP);
                     M=M-200;
                     return HP + M;
                 }
@@ -89,8 +94,7 @@ int getReady(int& HP, const int& ID, int& M, const int& E1){
         else if (ID==1)
         {
             HP=HP+75;
-            if(HP > 1000) HP=1000;
-            if(HP < 0) HP=0;
+            resetHP(HP);
             return HP + M;
         }
         // No king && commander
@@ -111,8 +115,7 @@ int getReady(int& HP, const int& ID, int& M, const int& E1){
                 if ( M >= 195 && x==2)
                 {
                     HP=HP + 7;
-                    if(HP > 1000) HP=1000;
-                    if(HP < 0) HP=0;
+                    resetHP(HP);
                     M=M-195;
                     return HP + M;
                 }
@@ -133,16 +136,14 @@ int getReady(int& HP, const int& ID, int& M, const int& E1){
                 if ( M >= 190 && x==1)
                 {
                     HP=HP +5;
-                    if(HP > 1000) HP=1000;
-                    if(HP < 0) HP=0;
+                    resetHP(HP);
                     M=M-190;
                     return HP + M;
                 }
                 else if (M >=200 && x==3)
                 {
                     HP=HP+9;
-                    if(HP > 1000) HP=1000;
-                    if(HP < 0) HP=0;
+                    resetHP(HP);
                     M=M-200;
                     return HP + M;
                 }
@@ -155,29 +156,25 @@ int getReady(int& HP, const int& ID, int& M, const int& E1){
             if ( x== 1 && M >= 190)
             {
                 HP=HP +5;
-                if(HP > 1000) HP=1000;
-                if(HP < 0) HP=0;
+                resetHP(HP);
                 return HP + (M-190);
             }
             else if (x==2 && M >= 195)
             {
                 HP=HP+7;
-                if(HP > 1000) HP=1000;
-                if(HP < 0) HP=0;
+                resetHP(HP);
                 return HP + (M-195);
             }
             else if (x==3 && M >= 200)
             {
                 HP = HP + 9;
-                if(HP > 1000) HP=1000;
-                if(HP < 0) HP=0;
+                resetHP(HP);
                 return HP + (M-200);
             }
             else if (x==4 && M>= 205)
             {
                 HP=HP+11;
-                if(HP > 1000) HP=1000;
-                if(HP < 0) HP=0;
+                resetHP(HP);
                 return HP + (M-205);
             }
             else return HP + M;
@@ -190,7 +187,7 @@ int getReady(int& HP, const int& ID, int& M, const int& E1){
         int a;
         int lastNumOfE1 = E1 % 10;
         int lastNumOfHP = HP % 10;
-        if (checksnt(lastNumOfE1))
+        if (isPrimeNum(lastNumOfE1))
         {
             a=2*lastNumOfE1;
         }
@@ -202,18 +199,16 @@ int getReady(int& HP, const int& ID, int& M, const int& E1){
         {
             if (HP >= 600 )
             {
-                if ( checksnt(lastNumOfHP) == true && M >= 500 )
+                if (isPrimeNum(lastNumOfHP) == true && M >= 500 )
                 {
-                    HP= ceil (HP + HP*2*a/100.0);
-                    if(HP > 1000) HP=1000;
-                    if(HP < 0) HP=0;
+                    HP=ceil (HP + HP*2*a/100.0);
+                    resetHP(HP);
                     return HP + (M-500);
                 }
-                else if (checksnt(lastNumOfHP) == false && M >= 300)
+                else if (isPrimeNum(lastNumOfHP) == false && M >= 300)
                 {
                     HP=ceil(HP + HP*a/100.0);
-                    if(HP > 1000) HP=1000;
-                    if(HP < 0) HP=0;
+                    resetHP(HP);
                     return HP + (M-300);
                 }
                 else return HP + M;
@@ -224,18 +219,16 @@ int getReady(int& HP, const int& ID, int& M, const int& E1){
         {
             if (HP >= 600 )
             {
-                if ( checksnt(lastNumOfHP) == true && M >= 500 )
+                if (isPrimeNum(lastNumOfHP) == true && M >= 500 )
                 {
                     HP= HP +200;
-                    if(HP > 1000) HP=1000;
-                    if(HP < 0) HP=0;
+                    resetHP(HP);
                     return HP + (M-500);
                 }
-                else if (checksnt(lastNumOfHP) == false && M >= 300)
+                else if (isPrimeNum(lastNumOfHP) == false && M >= 300)
                 {
                     HP=ceil (HP + HP*a/100.0);
-                    if(HP > 1000) HP=1000;
-                    if(HP < 0) HP=0;
+                    resetHP(HP);
                     return HP + (M-300);
                 }
                 else return HP + M;
@@ -249,9 +242,7 @@ int getReady(int& HP, const int& ID, int& M, const int& E1){
     {
         if (E1 % 5==0)
         {
-            HP= ceil(HP*9/10.0);
-            if(HP > 1000) HP=1000;
-            if(HP < 0) HP=0;
+            HP=ceil(HP*9/10.0);
             return HP + M;
         }
         else return HP + M;
@@ -282,46 +273,17 @@ int firstBattle(int& HP1, int& HP2, const int& ID1, const int& ID2, const int& E
     {
         HP1=ceil(HP1*11/10.0);
         HP2=ceil(HP2*13/10.0);
-        if ( HP1 > 1000) 
-        {
-            HP1 = 1000;
-        }
-        if ( HP1 < 0)
-        {
-            HP1 = 0;
-        }
-        if ( HP2 > 1000) 
-        {
-            HP2 = 1000;
-        }
-        if ( HP2 < 0)
-        {
-            HP2 = 0;
-        }
+        resetHP(HP1);
+        resetHP(HP2);
     }
-    
     
     /* ------------------------- */
     else if ( E2 >= 200 && E2 <=299)
     {
         HP1=ceil(HP1*17/10.0);
         HP2=ceil(HP2*12/10.0);
-        if ( HP1 > 1000) 
-        {
-            HP1 = 1000;
-        }
-        if ( HP1 < 0)
-        {
-            HP1 = 0;
-        }
-        if ( HP2 > 1000) 
-        {
-            HP2 = 1000;
-        }
-        if ( HP2 < 0)
-        {
-            HP2 = 0;
-        }
+        resetHP(HP1);
+        resetHP(HP2);
     }
 
 
@@ -333,22 +295,7 @@ int firstBattle(int& HP1, int& HP2, const int& ID1, const int& ID2, const int& E
             HP1=HP1+30;
         }    
         else HP1 = HP1 + E2%100;
-        if ( HP1 > 1000) 
-        {
-            HP1 = 1000;
-        }
-        if ( HP1 < 0)
-        {
-            HP1 = 0;
-        }
-        if ( HP2 > 1000) 
-        {
-            HP2 = 1000;
-        }
-        if ( HP2 < 0)
-        {
-            HP2 = 0;
-        }
+        resetHP(HP1);
     }
 
 
@@ -357,22 +304,8 @@ int firstBattle(int& HP1, int& HP2, const int& ID1, const int& ID2, const int& E
     {
         HP1=ceil(HP1*13/10.0);
         HP2=ceil(HP2*8/10.0);
-        if ( HP1 > 1000) 
-        {
-            HP1 = 1000;
-        }
-        if ( HP1 < 0)
-        {
-            HP1 = 0;
-        }
-        if ( HP2 > 1000) 
-        {
-            HP2 = 1000;
-        }
-        if ( HP2 < 0)
-        {
-            HP2 = 0;
-        }
+        resetHP(HP1);
+        resetHP(HP2);
         HP1=ceil(HP1*5/10.0);
     }
 
@@ -383,23 +316,9 @@ int firstBattle(int& HP1, int& HP2, const int& ID1, const int& ID2, const int& E
         int u = ceil ((2*HP1*HP2)/(double(HP1+HP2)));
         HP2=HP2 - abs(HP1-u);
         HP1=HP1 - abs(temp-u);
-        if ( HP1 > 1000) 
-        {
-            HP1 = 1000;
-        }
-        if ( HP1 < 0)
-        {
-            HP1 = 0;
-        }
-        if ( HP2 > 1000) 
-        {
-            HP2 = 1000;
-        }
-        if ( HP2 < 0)
-        {
-            HP2 = 0;
-        }
-        if (HP1 > HP2 )
+        resetHP(HP1);
+        resetHP(HP2);
+        if (HP1 >HP2)
         {
             HP1=ceil(HP1*8/10.0);
             return 1;
@@ -442,26 +361,12 @@ int secondBattle(int& HP1, int& HP2, const int& ID1, const int& ID2, const int& 
     }
     else if(E3 >= 100 && E3 <=299)
     {
-    HP1=ceil(HP1*14/10.0);
-    HP2=ceil(HP2*16/10.0);
-    if(ID1==1) HP1=HP1*2;
+        HP1=ceil(HP1*14/10.0);
+        HP2=ceil(HP2*16/10.0);
+        if(ID1==1) HP1=HP1*2;
     }
-    if ( HP1 > 1000) 
-        {
-            HP1 = 1000;
-        }
-    if ( HP1 < 0)
-        {
-            HP1 = 0;
-        }
-    if ( HP2 > 1000) 
-        {
-            HP2 = 1000;
-        }
-    if ( HP2 < 0)
-        {
-            HP2 = 0;
-        }
+    resetHP(HP1);
+    resetHP(HP2);
     int v=HP1;
     // Tinh HP 
     if (E3 >= 100 && E3 <= 199)
@@ -469,22 +374,6 @@ int secondBattle(int& HP1, int& HP2, const int& ID1, const int& ID2, const int& 
         if(ID2!=2)
         {
             HP2=ceil(HP2*95/100.0);
-        }
-        if ( HP1 > 1000) 
-        {
-            HP1 = 1000;
-        }
-        if ( HP1 < 0)
-        {
-            HP1 = 0;
-        }
-        if ( HP2 > 1000) 
-        {
-            HP2 = 1000;
-        }
-        if ( HP2 < 0)
-        {
-            HP2 = 0;
         }
     }
 
@@ -494,22 +383,6 @@ int secondBattle(int& HP1, int& HP2, const int& ID1, const int& ID2, const int& 
         if(ID2!=2)
         {
             HP2=ceil(HP2*95/100.0);
-        }
-        if ( HP1 > 1000) 
-        {
-            HP1 = 1000;
-        }
-        if ( HP1 < 0)
-        {
-            HP1 = 0;
-        }
-        if ( HP2 > 1000) 
-        {
-            HP2 = 1000;
-        }
-        if ( HP2 < 0)
-        {
-            HP2 = 0;
         }
         return 0;
     }
@@ -521,22 +394,6 @@ int secondBattle(int& HP1, int& HP2, const int& ID1, const int& ID2, const int& 
         int u = ceil((2*HP1*HP2)/(double(HP1+HP2)));
         HP2=HP2 - abs(HP1-u);
         HP1=HP1 - abs(temp-u);
-        if ( HP1 > 1000) 
-        {
-            HP1 = 1000;
-        }
-        if ( HP1 < 0)
-        {
-            HP1 = 0;
-        }
-        if ( HP2 > 1000) 
-        {
-            HP2 = 1000;
-        }
-        if ( HP2 < 0)
-        {
-            HP2 = 0;
-        }
         if (HP1 > HP2 )
         {
             return 1;
